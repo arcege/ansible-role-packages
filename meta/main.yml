@@ -1,0 +1,13 @@
+galaxy_info:
+  author: Michael P. Reilly
+  description: handle adding and removing packages for other roles
+
+  license: GPLv3
+
+  min_ansible_version: 1.2
+
+  galaxy_tags:
+    - root
+    - installation
+
+dependencies: []

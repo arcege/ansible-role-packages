@@ -1,0 +1,10 @@
+---
+
+- name: remove apt packages
+  apt: update_cache=yes name={{item}} state=absent
+  with_items: "{{ remove_packages }}"
+  become: yes
+  tags:
+    - installation
+    - root
+

@@ -1,0 +1,33 @@
+---
+
+- name: install pip
+  package: name=python-pip state=present
+  become: yes
+  tags:
+    - installation
+    - root
+
+- name: install system pip packages
+  pip: name={{item}} state=present
+  with_items: "{{ python_packages }}"
+  when: virtualenv is not defined and not user_pip
+  become: yes
+  tags:
+    - installation
+    - root
+
+- name: install user pip packages
+  pip: name={{item}} state=present extra_args=--user
+  with_items: "{{ pip_user_packages | default(python_packages) }}"
+  when: virtualenv is not defined and user_pip
+  become_user: "{{ pip_user | default(ansible_user) }}"
+  tags:
+    - installation
+
+- name: install pip packages (pyenv)
+  pip: name={{item}} state=present virtualenv={{virtualenv}}
+  with_items: "{{ pip_virtenv_packages | default(python_packages) }}"
+  become_user: "{{ pip_user | default(ansible_user) }}"
+  when: virtualenv is defined
+  tags:
+    - installation
