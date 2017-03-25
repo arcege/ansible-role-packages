@@ -6,8 +6,13 @@ galaxy_info:
 
   min_ansible_version: 1.2
 
-  galaxy_tags:
-    - root
+  platforms:
+    - name: EL
+    - name: Debian
+    - name: Ubuntu
+
+  tags:
     - installation
+    - package
 
 dependencies: []
